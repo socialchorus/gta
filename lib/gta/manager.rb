@@ -45,5 +45,13 @@ module GTA
     def stage!(name)
       stage(name) || (raise ArgumentError.new("Stage #{name} not found"))
     end
+
+    def self.env_config
+      ENV['GTA_CONFIG_PATH']
+    end
+
+    def self.stage_name_error
+      "Stage name required. Run rake with argument - `rake:deploy[staging]`"
+    end
   end
 end
