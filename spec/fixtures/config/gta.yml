@@ -1,0 +1,15 @@
+ci:
+  repository: git@github.com:socialchorus/activator.git
+
+staging:
+  source_stage: ci
+  tag: staging/*
+  repository: git@heroku.com:activator-staging.git
+
+qa:
+  source_stage: staging
+  repository: git@heroku.com:activator-qa.git
+
+production:
+  source_stage: qa
+  repository: git@heroku.com:activator-production.git
