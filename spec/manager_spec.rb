@@ -5,7 +5,7 @@ describe GTA::Manager do
   let(:manager) { GTA::Manager.new(config_path) }
 
   it "builds stages for each entry in the yml" do
-    manager.stages.size.should == 4
+    manager.stages.size.should == 5
     manager.stages.map(&:class).uniq.should == [GTA::Stage]
   end
 
@@ -38,9 +38,24 @@ describe GTA::Manager do
   end
 
   describe '#push_to' do
+    before do
+      manager.stub(:fetch)
+      manager.stage(:qa).stub(:push)
+    end
+
+    it "fetches" do
+      manager.should_receive(:fetch)
+      manager.push_to(:qa)
+    end
+
     it "tells the right stage to push itself" do
       manager.stage(:qa).should_receive(:push)
       manager.push_to(:qa)
+    end
+
+    it "will force with the right arguments" do
+      manager.stage(:qa).should_receive(:force_push)
+      manager.push_to(:qa, :force)
     end
   end
 

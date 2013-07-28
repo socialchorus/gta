@@ -6,6 +6,30 @@ module GTA
       @config_path = config_path
     end
 
+    def push_to(name, forced = nil)
+      s = stage!(name)
+      fetch
+      if forced == :force
+        s.force_push
+      else
+        s.push
+      end
+    end
+
+    def checkout(name)
+      stage!(name).checkout
+    end
+
+    alias :co :checkout
+
+    def fetch
+      stages.each(&:fetch)
+    end
+
+    def setup
+      stages.each(&:add_remote)
+    end
+
     def config
       @config ||= YAML.load(File.read(config_path))
     end
@@ -20,18 +44,6 @@ module GTA
 
     def stage!(name)
       stage(name) || (raise ArgumentError.new("Stage #{name} not found"))
-    end
-
-    def push_to(name)
-      stage!(name).push
-    end
-
-    def fetch
-      stages.each(&:fetch)
-    end
-
-    def setup
-      stages.each(&:add_remote)
     end
   end
 end

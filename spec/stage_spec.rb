@@ -39,6 +39,13 @@ describe GTA::Stage do
     end
   end
 
+  describe '#checkout' do
+    it "send the command to checkout a tracking branch from the remote" do
+      stage.should_receive(:sh).with("git checkout -b staging -t staging/master")
+      stage.checkout
+    end
+  end
+
   describe '#fetch' do
     it "calls the right git command" do
       stage.should_receive(:sh).with("git fetch staging")

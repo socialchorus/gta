@@ -28,6 +28,10 @@ module GTA
       sh "git remote add #{name} #{repository}"
     end
 
+    def checkout
+      sh "git checkout -b #{name} -t #{name}/#{branch}"
+    end
+
     def push(s=source, forced=nil)
       sh push_command(source_from(s), forced)
     end
