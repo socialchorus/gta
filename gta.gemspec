@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["developers@socialchorus.com"]
   spec.description   = %q{GTA: the Git Transit Authority - A git based deploy tool for moving code from stage to stage.}
   spec.summary       = %q{GTA: the Git Transit Authority - A git based deploy tool for moving code from stage to stage.}
-  spec.homepage      = ""
+  spec.homepage      = "http://github.com/socialchorus/gta"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
