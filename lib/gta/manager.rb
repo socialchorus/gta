@@ -2,8 +2,8 @@ module GTA
   class Manager
     attr_reader :config_path
 
-    def initialize(config_path = "#{Dir.pwd}/config/gta.yml")
-      @config_path = config_path
+    def initialize(config_path = nil)
+      @config_path = config_path || "#{Dir.pwd}/config/gta.yml"
     end
 
     def push_to(name, forced = nil)
