@@ -22,7 +22,11 @@ module GTA
     end
 
     def fetch
-      sh("curl -o ~/Downloads/#{app_signature}.sql \"#{url}\"")
+      sh("curl -o #{file_name} \"#{url}\"")
+    end
+
+    def file_name
+      "~/Downloads/#{app_signature}.sql"
     end
 
     def app_signature

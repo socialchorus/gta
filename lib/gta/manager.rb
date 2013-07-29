@@ -16,6 +16,10 @@ module GTA
       end
     end
 
+    def app_name
+      @app_name || config && @app_name
+    end
+
     def checkout(name)
       stage!(name).checkout
     end
@@ -31,7 +35,10 @@ module GTA
     end
 
     def config
-      @config ||= YAML.load(File.read(config_path))
+      return @config if @config
+      parsed = YAML.load(File.read(config_path))
+      @app_name = parsed.keys.first
+      @config = parsed.values.first
     end
 
     def stages
@@ -40,6 +47,10 @@ module GTA
 
     def stage(name)
       stages.detect{|s| s.name == name.to_s}
+    end
+
+    def final_stage
+      stages.detect{|s| s.final? } || stages.last
     end
 
     def stage!(name)

@@ -9,6 +9,10 @@ describe GTA::Manager do
     manager.stages.map(&:class).uniq.should == [GTA::Stage]
   end
 
+  it "has an app name" do
+    manager.app_name.should == 'activator'
+  end
+
   describe '#fetch' do
     it "loops through each stage and calls fetch" do
       manager.stages.each do |stage|
@@ -34,6 +38,34 @@ describe GTA::Manager do
 
     it 'finds and return the right stage otherwise' do
       manager.stage!(:ci).should be_a(GTA::Stage)
+    end
+  end
+
+  describe '#final_stage' do
+    context "when there are more than one final stages" do
+      before do
+        manager.stages.first.stub(:final?).and_return(true)
+      end
+
+      it "returns the first stage that responds to #final? with true" do
+        manager.final_stage.should == manager.stages.first
+      end
+    end
+
+    context "when there is only one final stage" do
+      it "returns the only one defined" do
+        manager.final_stage.name.should == 'qa'
+      end
+    end
+
+    context "when there are no final stages" do
+      before do
+        manager.stages.each{|s| s.stub(:final?).and_return(false) }
+      end
+
+      it "chooses the last stage in the configuration" do
+        manager.final_stage.name.should == 'production'
+      end
     end
   end
 

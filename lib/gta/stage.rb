@@ -2,7 +2,8 @@ module GTA
   class Stage
     include Sh
 
-    attr_reader :name, :repository, :source_name, :branch, :tag, :manager
+    attr_reader :name, :repository, :source_name, :branch, :tag, :manager,
+      :final, :deployable, :restorable
 
     def initialize(name, manager, opts)
       @name = name
@@ -11,6 +12,9 @@ module GTA
       @source_name =  opts['source']
       @branch =       opts['branch'] || 'master'
       @tag =          opts['tag']
+      @final =        opts['final']
+      @deployable =   opts['deployable']
+      @restorable =   opts['restorable']
     end
 
     def stages
@@ -48,6 +52,14 @@ module GTA
       name == other.name &&
         branch == other.branch &&
         tag == other.tag
+    end
+
+    def final?
+      !!final
+    end
+
+    def restorable?
+      !!restorable
     end
 
     # -----------

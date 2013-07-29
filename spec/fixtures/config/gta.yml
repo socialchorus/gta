@@ -1,19 +1,24 @@
-origin:
-  repository: git@github.com:socialchorus/activator.git
+activator:
+  origin:
+    repository: git@github.com:socialchorus/activator.git
 
-ci:
-  source: origin
-  repository: git@github.com:socialchorus/activator.git
+  ci:
+    source: origin
+    repository: git@github.com:socialchorus/activator.git
 
-staging:
-  source: ci
-  tag: staging/*
-  repository: git@heroku.com:activator-staging.git
+  staging:
+    source: ci
+    tag: staging/*
+    repository: git@heroku.com:activator-staging.git
+    restorable: true
 
-qa:
-  source: staging
-  repository: git@heroku.com:activator-qa.git
+  qa:
+    source: staging
+    repository: git@heroku.com:activator-qa.git
+    restorable: true
+    final: true
+    hotfixable: true
 
-production:
-  source: qa
-  repository: git@heroku.com:activator-production.git
+  production:
+    source: qa
+    repository: git@heroku.com:activator-production.git
