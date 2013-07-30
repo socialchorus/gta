@@ -28,5 +28,13 @@ module GTA
     def self.default_database_config_path
       "#{Dir.pwd}/config/database.yml"
     end
+
+    def self.env_config
+      ENV['GTA_DATABASE_CONFIG_PATH']
+    end
+
+    def self.local_database_env
+      ENV['RAILS_ENV'] || ENV['GTA_LOCAL_ENV']
+    end
   end
 end
