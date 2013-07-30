@@ -3,7 +3,7 @@ module GTA
     include Sh
 
     attr_reader :name, :repository, :source_name, :branch, :tag, :manager,
-      :final, :deployable, :restorable
+      :final, :hotfixable, :restorable
 
     def initialize(name, manager, opts)
       @name = name
@@ -13,7 +13,7 @@ module GTA
       @branch =       opts['branch'] || 'master'
       @tag =          opts['tag']
       @final =        opts['final']
-      @deployable =   opts['deployable']
+      @hotfixable =   opts['hotfixable']
       @restorable =   opts['restorable']
     end
 
@@ -49,7 +49,8 @@ module GTA
     end
 
     def ==(other)
-      name == other.name &&
+       other.is_a?(self.class) &&
+        name == other.name &&
         branch == other.branch &&
         tag == other.tag
     end
@@ -62,6 +63,10 @@ module GTA
       !!restorable
     end
 
+    def hotfixable?
+      !!hotfixable
+    end
+
     # -----------
 
     def source_from(s)
@@ -69,7 +74,7 @@ module GTA
     end
 
     def source_ref
-      tag || "#{name}/#{branch}"
+      tag || "#{name}"
     end
 
     def push_command(source_ref, forced=nil)

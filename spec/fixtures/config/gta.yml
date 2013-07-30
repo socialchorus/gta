@@ -11,6 +11,7 @@ activator:
     tag: staging/*
     repository: git@heroku.com:activator-staging.git
     restorable: true
+    hotfixable: true
 
   qa:
     source: staging

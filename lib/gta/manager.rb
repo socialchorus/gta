@@ -53,6 +53,12 @@ module GTA
       stages.detect{|s| s.final? } || stages.last
     end
 
+    def hotfixer(stage_name=nil)
+      hotfixers = stages.select{|s| s.hotfixable?}
+      default = stage_name == nil ? hotfixers.first : nil
+      hotfixers.detect{|s| s.name == stage_name} || default
+    end
+
     def stage!(name)
       stage(name) || (raise ArgumentError.new("Stage #{name} not found"))
     end

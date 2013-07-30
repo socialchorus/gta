@@ -69,6 +69,28 @@ describe GTA::Manager do
     end
   end
 
+  describe '#hotfixer' do
+    context 'when not passed a stage name' do
+      it "returns the first stage that is hotfixable" do
+        manager.hotfixer.name.should == 'staging'
+      end
+    end
+
+    context "when passed a stage name" do
+      context "when the stage name matches a hotfixable stage" do
+        it "returns the stage" do
+          manager.hotfixer('qa').name.should == 'qa'
+        end
+      end
+
+      context "when the stage name matches as non hotfixbale stage" do
+        it "returns nil" do
+          manager.hotfixer('production').should == nil
+        end
+      end
+    end
+  end
+
   describe '#push_to' do
     before do
       manager.stub(:fetch)
