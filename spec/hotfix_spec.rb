@@ -43,13 +43,8 @@ describe GTA::Hotfix do
   describe '#deploy' do
     context "when on a branch that maps to a stage" do
       before do
-        hotfix.stub(:sh) do |command|
-          if command == 'git branch'
-            branch_output
-          else
-            "deploying: #{command}"
-          end
-        end
+        hotfix.stub(:`).and_return(branch_output)
+        hotfix.stub(:sh)
       end
 
       context "if it is hotfixable" do
@@ -58,7 +53,10 @@ describe GTA::Hotfix do
         }
 
         it "should call #sh with the right deploy command" do
-          hotfix.deploy.should == "deploying: git push qa qa:master"
+          hotfix.should_receive(:sh)
+            .with("git push qa qa:master")
+            .and_return("deploying")
+          hotfix.deploy.should == "deploying"
         end
       end
 
@@ -73,10 +71,6 @@ describe GTA::Hotfix do
           }.to raise_error
         end
       end
-    end
-
-    context "when not on a valid branch" do
-
     end
   end
 end

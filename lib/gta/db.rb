@@ -43,7 +43,7 @@ module GTA
       source_db.backup
 
       destination_db = db(destination.name)
-      destination_db.restore(source_db.url)
+      destination_db.restore_from(source_db.url)
     end
 
     def stage_or_final(stage_name)

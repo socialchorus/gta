@@ -6,7 +6,7 @@ require 'gta/version'
 Gem::Specification.new do |spec|
   spec.name          = "gta"
   spec.version       = GTA::VERSION
-  spec.authors       = ["socialchorus", "Kane Baccigalupi"]
+  spec.authors       = ["socialchorus", "Kane Baccigalupi", "Ian Cooper"]
   spec.email         = ["developers@socialchorus.com"]
   spec.description   = %q{GTA: the Git Transit Authority - A git based deploy tool for moving code from stage to stage.}
   spec.summary       = %q{GTA: the Git Transit Authority - A git based deploy tool for moving code from stage to stage.}

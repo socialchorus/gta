@@ -6,7 +6,7 @@ describe GTA::HerokuDB do
 
   describe '#url' do
     it "gets the temporary database url from heroku" do
-      heroku_db.should_receive(:sh)
+      heroku_db.should_receive(:`)
         .with("heroku pgbackups:url --app activator-staging")
         .and_return('backup url')
       heroku_db.url.should == 'backup url'

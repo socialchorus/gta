@@ -87,7 +87,7 @@ describe GTA::DB do
   describe '#restore' do
     let(:manager) { db.manager }
     let(:source_heroku_db) { double('source db', backup: true, url: 'source-url') }
-    let(:destination_heroku_db) { double('distination db', restore: true) }
+    let(:destination_heroku_db) { double('distination db', restore_from: true) }
 
     context 'when the destination stage is not restorable' do
       it "raises an error" do
@@ -119,7 +119,7 @@ describe GTA::DB do
       end
 
       it "calls restore on the destination stage with the database url" do
-        destination_heroku_db.should_receive(:restore).with('source-url')
+        destination_heroku_db.should_receive(:restore_from).with('source-url')
         db.restore('staging')
       end
     end
@@ -146,7 +146,7 @@ describe GTA::DB do
       end
 
       it "calls restore on the destination stage with the database url" do
-        destination_heroku_db.should_receive(:restore).with('source-url')
+        destination_heroku_db.should_receive(:restore_from).with('source-url')
         db.restore('qa', 'production')
       end
     end
