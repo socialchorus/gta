@@ -1,5 +1,3 @@
-require 'gta'
-
 namespace :gta do
   desc 'add remote repositories for each of the configured environments'
   task :setup do
