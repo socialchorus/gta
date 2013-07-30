@@ -7,9 +7,9 @@ namespace :gta do
     end
 
     desc "deploy checked out branch to that remote"
-    task :deploy, :stage_name do |t, args|
+    task :deploy do
       hotfix = GTA::Hotfix.new(GTA::Manager.env_config)
-      hotfix.deploy(args[:stage_name])
+      hotfix.deploy
     end
   end
 end

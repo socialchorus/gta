@@ -32,7 +32,8 @@ module GTA
     end
 
     def branch_name
-      branches = sh 'git branch'
+      # using `` because we need the bash output
+      branches = `git branch`
       matches = branches.match(/\*\s+(.*)/)
       matches[1].strip if matches
     end

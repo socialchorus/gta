@@ -10,7 +10,8 @@ module GTA
     end
 
     def url
-      sh("heroku pgbackups:url --app #{app_signature}")
+      # using backticks in order to get the bash response
+      `heroku pgbackups:url --app #{app_signature}`
     end
 
     def backup
