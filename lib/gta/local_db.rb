@@ -10,7 +10,7 @@ module GTA
     end
 
     def load(backup_path)
-      sh "pg_restore --verbose --clean --no-acl --no-owner -h localhost#{username}#{database} #{backup_path}"
+      sh("pg_restore --verbose --clean --no-acl --no-owner -h localhost#{username}#{database} #{backup_path}")
     end
 
     def config

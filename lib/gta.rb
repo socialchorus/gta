@@ -1,3 +1,4 @@
+require 'open3'
 require 'ansi/code'
 
 require "gta/version"
@@ -9,3 +10,5 @@ require "gta/local_db"
 require "gta/db"
 require "gta/hotfix"
 require "gta/tag_finder"
+require "gta/commander"
+require "gta/file_logger"

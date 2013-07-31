@@ -10,8 +10,7 @@ module GTA
     end
 
     def url
-      # using backticks in order to get the bash response
-      `heroku pgbackups:url --app #{app_signature}`
+      sh!("heroku pgbackups:url --app #{app_signature}").strip
     end
 
     def backup
@@ -19,11 +18,11 @@ module GTA
     end
 
     def restore_from(url)
-      sh("heroku pgbackups:restore DATABASE_URL \"#{url}\" --app #{app_signature} --confirm #{app_signature}")
+      sh!("heroku pgbackups:restore DATABASE_URL \"#{url}\" --app #{app_signature} --confirm #{app_signature}")
     end
 
     def fetch
-      sh("curl -o #{file_name} \"#{url}\"")
+      sh!("curl -o #{file_name} \"#{url}\"")
     end
 
     def file_name

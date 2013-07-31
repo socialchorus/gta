@@ -8,7 +8,7 @@ module GTA
 
     def push_to(name, forced = nil)
       s = stage!(name)
-      fetch
+      fetch!
       if forced == :force
         s.force_push
       else
@@ -28,6 +28,10 @@ module GTA
 
     def fetch
       stages.each(&:fetch)
+    end
+
+    def fetch!
+      stages.each(&:fetch!)
     end
 
     def setup

@@ -29,23 +29,39 @@ module GTA
       raise "no name defined for #{self}" unless name
       raise "no repository defined for #{name}" unless repository
 
-      sh "git remote add #{name} #{repository}"
+      sh("git remote add #{name} #{repository}")
     end
 
     def checkout
-      sh "git checkout -b #{name} -t #{name}/#{branch}"
+      sh(checkout_command)
+    end
+
+    def checkout!
+      sh!(checkout_command)
+    end
+
+    def checkout_command
+      "git checkout -b #{name} -t #{name}/#{branch}"
     end
 
     def push(s=source, forced=nil)
-      sh push_command(source_from(s), forced)
+      sh!(push_command(source_from(s), forced))
     end
 
     def force_push(s=source)
-      sh push_command(source_from(s), :force)
+      sh!(push_command(source_from(s), :force))
     end
 
     def fetch
-      sh "git fetch #{name}"
+      sh(fetch_command)
+    end
+
+    def fetch!
+      sh!(fetch_command)
+    end
+
+    def fetch_command
+      "git fetch #{name}"
     end
 
     def ==(other)

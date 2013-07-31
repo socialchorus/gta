@@ -1,5 +1,7 @@
 module GTA
   class Hotfix
+    include Sh
+
     attr_reader :gta_config_path
 
     def initialize(gta_config_path = nil)
@@ -20,7 +22,7 @@ module GTA
       stage_name = branch_name
       stage = stage_for(stage_name)
       not_hotfixable!(stage_name) if !stage || !stage_name
-      sh "git push #{stage_name} #{stage_name}:master"
+      sh!("git push #{stage_name} #{stage_name}:master")
     end
 
     def not_hotfixable!(stage_name)
@@ -32,8 +34,7 @@ module GTA
     end
 
     def branch_name
-      # using `` because we need the bash output
-      branches = `git branch`
+      branches = sh!("git branch").strip
       matches = branches.match(/\*\s+(.*)/)
       matches[1].strip if matches
     end

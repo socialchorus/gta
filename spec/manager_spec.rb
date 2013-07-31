@@ -93,12 +93,12 @@ describe GTA::Manager do
 
   describe '#push_to' do
     before do
-      manager.stub(:fetch)
+      manager.stub(:fetch!)
       manager.stage(:qa).stub(:push)
     end
 
     it "fetches" do
-      manager.should_receive(:fetch)
+      manager.should_receive(:fetch!)
       manager.push_to(:qa)
     end
 

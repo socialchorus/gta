@@ -31,7 +31,10 @@ Or install it yourself as:
 
 ## Usage
 
-Rake tasks are in progress; stay tuned.
+The main use case is via rake task. Include the rake tasks via the
+project Rakefile.
+
+    
 
 ## Contributing
 

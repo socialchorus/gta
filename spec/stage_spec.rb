@@ -98,7 +98,7 @@ describe GTA::Stage do
 
     context "when using internally defined source object" do
       it "sends the right git shell command" do
-        stage.should_receive(:sh).with("git push staging ci:master")
+        stage.should_receive(:sh!).with("git push staging ci:master")
         stage.push
       end
     end
@@ -107,7 +107,7 @@ describe GTA::Stage do
       let(:origin) { GTA::Stage.new('origin', manager, opts.merge('branch' => 'sendit')) }
 
       it "sends the right git shell command" do
-        stage.should_receive(:sh).with("git push staging origin:master")
+        stage.should_receive(:sh!).with("git push staging origin:master")
         stage.push(origin)
       end
     end
@@ -116,7 +116,7 @@ describe GTA::Stage do
       let(:branch) { 'alt_branch' }
 
       it "sends the right git shell command" do
-        stage.should_receive(:sh).with("git push staging foo:alt_branch")
+        stage.should_receive(:sh!).with("git push staging foo:alt_branch")
         stage.push('foo')
       end
     end
@@ -127,14 +127,14 @@ describe GTA::Stage do
 
       it "uses the tag as the source reference" do
         GTA::TagFinder.should_receive(:new).with(tag).and_return(tag_finder)
-        stage.should_receive(:sh).with("git push staging my-tag:master")
+        stage.should_receive(:sh!).with("git push staging my-tag:master")
         stage.push
       end
     end
 
     context "force push" do
       it "adds the -f flag to the git command" do
-        stage.should_receive(:sh).with("git push -f staging ci:master")
+        stage.should_receive(:sh!).with("git push -f staging ci:master")
         stage.force_push
       end
     end
