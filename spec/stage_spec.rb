@@ -123,8 +123,10 @@ describe GTA::Stage do
 
     context "when the source has a tag" do
       let(:tag) { 'my-tag' }
+      let(:tag_finder) { double(newest: tag) }
 
       it "uses the tag as the source reference" do
+        GTA::TagFinder.should_receive(:new).with(tag).and_return(tag_finder)
         stage.should_receive(:sh).with("git push staging my-tag:master")
         stage.push
       end

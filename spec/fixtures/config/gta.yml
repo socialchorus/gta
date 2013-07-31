@@ -4,11 +4,11 @@ activator:
 
   ci:
     source: origin
+    tag: ci/*
     repository: git@github.com:socialchorus/activator.git
 
   staging:
     source: ci
-    tag: staging/*
     repository: git@heroku.com:activator-staging.git
     restorable: true
     hotfixable: true

@@ -74,7 +74,7 @@ module GTA
     end
 
     def source_ref
-      tag || "#{name}"
+      TagFinder.new(tag).newest || "#{name}"
     end
 
     def push_command(source_ref, forced=nil)
