@@ -13,4 +13,15 @@ describe GTA::LocalDB do
       local_db.load("~/Downloads/activator-staging.sql")
     end
   end
+
+  context 'when the database config is not yml' do
+    let(:database_config_path) { File.dirname(__FILE__) + "/fixtures/config/database.json" }
+
+    it "loads the config via json" do
+      local_db.should_receive(:sh).with(
+        "pg_restore --verbose --clean --no-acl --no-owner -h localhost -U socialchorus -d linktivator_development ~/Downloads/activator-staging.sql"
+      )
+      local_db.load("~/Downloads/activator-staging.sql")
+    end
+  end
 end

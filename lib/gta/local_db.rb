@@ -14,11 +14,23 @@ module GTA
     end
 
     def config
-      @config ||= YAML.load(File.read(database_config_path))[env]
+      @config ||= parsed_config[env]
+    end
+
+    def file_contents
+      File.read(database_config_path)
+    end
+
+    def parsed_config
+      database_config_path.match(/yml$/) ? YAML.load(file_contents) : JSON.parse(file_contents)
+    end
+
+    def _username
+      config['username'] || config['user']
     end
 
     def username
-      config['username'] ? " -U #{config['username']}" : ''
+      _username ? " -U #{_username}" : ''
     end
 
     def database
@@ -27,10 +39,6 @@ module GTA
 
     def self.default_database_config_path
       "#{Dir.pwd}/config/database.yml"
-    end
-
-    def self.env_config
-      ENV['GTA_DATABASE_CONFIG_PATH']
     end
 
     def self.local_database_env

@@ -13,6 +13,11 @@ describe GTA::Manager do
     manager.app_name.should == 'activator'
   end
 
+  it "has a reference to the database config file" do
+    File.expand_path(manager.database_config_path).should ==
+      File.expand_path(File.dirname(__FILE__) + "/fixtures/config/database.yml")
+  end
+
   describe '#fetch' do
     it "loops through each stage and calls fetch" do
       manager.stages.each do |stage|

@@ -1,0 +1,22 @@
+{
+  "development": {
+    "driver": "pg",
+    "host": "localhost",
+    "user": "socialchorus",
+    "database": "linktivator_development"
+  },
+
+  "test": {
+    "driver": "pg",
+    "host": "localhost",
+    "user": "socialchorus",
+    "database": "linktivator_test"
+  },
+
+  "nimbus": {
+    "driver": "pg",
+    "host": "localhost",
+    "user": "socialchorus",
+    "database": "linktivator_test"
+  }
+}

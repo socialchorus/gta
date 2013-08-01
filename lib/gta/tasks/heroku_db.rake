@@ -2,7 +2,7 @@ namespace :gta do
   namespace :heroku do
     namespace :db do
       def gta_db
-        @gta_db ||= GTA::DB.new(GTA::Manager.env_config, GTA::LocalDB.env_config, GTA::LocalDB.local_database_env)
+        @gta_db ||= GTA::DB.new(GTA::Manager.env_config, GTA::LocalDB.local_database_env)
       end
 
       desc 'download the database from the specified stage or from the last stage'

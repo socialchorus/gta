@@ -1,4 +1,7 @@
-activator:
+database_config: database.yml # relative from the config file
+name: activator
+
+stages:
   origin:
     repository: git@github.com:socialchorus/activator.git
 

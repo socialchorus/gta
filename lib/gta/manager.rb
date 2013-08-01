@@ -20,6 +20,10 @@ module GTA
       @app_name || config && @app_name
     end
 
+    def database_config_path
+      @database_config_path || config && @database_config_path
+    end
+
     def checkout(name)
       stage!(name).checkout
     end
@@ -41,8 +45,17 @@ module GTA
     def config
       return @config if @config
       parsed = YAML.load(File.read(config_path))
-      @app_name = parsed.keys.first
-      @config = parsed.values.first
+      @app_name = parsed['name']
+      @database_config_path = find_database_config(parsed['database_config'])
+      @config = parsed['stages']
+    end
+
+    def find_database_config(path)
+      if path
+        File.dirname(config_path) + "/#{path}"
+      else
+        LocalDB.default_database_config_path
+      end
     end
 
     def stages

@@ -1,10 +1,9 @@
 module GTA
   class DB
-    attr_reader :gta_config_path, :database_config_path, :local_env
+    attr_reader :gta_config_path, :local_env
 
-    def initialize(gta_config_path=nil, database_config_path=nil, local_env=nil)
+    def initialize(gta_config_path=nil, local_env=nil)
       @gta_config_path = gta_config_path
-      @database_config_path = database_config_path
       @local_env = local_env || 'development'
     end
 
@@ -13,7 +12,7 @@ module GTA
     end
 
     def local_db
-      @local_db ||= LocalDB.new(local_env, database_config_path)
+      @local_db ||= LocalDB.new(local_env, manager.database_config_path)
     end
 
     def fetch(stage_name=nil)

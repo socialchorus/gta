@@ -1,5 +1,6 @@
 require 'open3'
 require 'ansi/code'
+require 'json'
 
 require "gta/version"
 require "gta/sh"
@@ -12,3 +13,4 @@ require "gta/hotfix"
 require "gta/tag_finder"
 require "gta/commander"
 require "gta/file_logger"
+require "gta/diff"
