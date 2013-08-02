@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/github/socialchorus/gta.png)](https://codeclimate.com/github/socialchorus/gta)
+
 # GTA - the Git Transit Authority
 
 GTA is a git-based deploy tool for moving code from stage to stage.
