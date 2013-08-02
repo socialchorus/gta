@@ -33,10 +33,12 @@ module GTA
     end
 
     def checkout
+      delete_existing_branch if existing_branch?
       sh(checkout_command)
     end
 
     def checkout!
+      delete_existing_branch if existing_branch?
       sh!(checkout_command)
     end
 
@@ -62,6 +64,15 @@ module GTA
 
     def fetch_command
       "git fetch #{name}"
+    end
+
+    def delete_existing_branch
+      sh("git checkout master") # in case already on branch
+      sh("git branch -D #{name}")
+    end
+
+    def existing_branch?
+      sh('git branch').include?(name)
     end
 
     def ==(other)

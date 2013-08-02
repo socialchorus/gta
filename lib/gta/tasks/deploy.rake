@@ -6,22 +6,19 @@ namespace :gta do
     desc 'task that will be run after a deploy'
     task :after, :stage_name
 
-    def gta_manager(args={})
-      return @manager if @manager
-      raise GTA::Manager.stage_name_error unless stage_name = args[:stage_name]
-      @manager = GTA::Manager.new(GTA::Manager.env_config)
+    def deployer(args)
+      stage_name = args[:stage_name]
+      GTA::Deploy.new(stage_name, GTA::Manager.env_config)
     end
 
     # the meat of a deploy, a git push from source to destination
     task :gta_push, :stage_name do |t, args|
-      stage_name = args[:stage_name]
-      gta_manager(args).push_to(stage_name)
+      deployer(args).deploy
     end
 
     # a forced version of the meat of the matter
     task :gta_force_push, :stage_name do |t, args|
-      stage_name = args[:stage_name]
-      gta_manager(args).push_to(stage_name, :force)
+      deployer(args).deploy(:force)
     end
 
     task :deploy, :stage_name do |t, args|

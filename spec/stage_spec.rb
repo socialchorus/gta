@@ -40,9 +40,50 @@ describe GTA::Stage do
   end
 
   describe '#checkout' do
-    it "send the command to checkout a tracking branch from the remote" do
-      stage.should_receive(:sh).with("git checkout -b staging -t staging/master")
-      stage.checkout
+    let(:commands) { [] }
+
+    context "branch exists" do
+      before do
+        stage.stub(:sh) do |command|
+          commands << command
+
+          if command == "git branch"
+            "  master\n* staging\n  qa"
+          end
+        end
+      end
+
+      it "removes the existing branch" do
+        stage.checkout
+        commands.should include("git branch -D staging")
+      end
+
+      it "checks out a new tracking branch" do
+        stage.checkout
+        commands.should include("git checkout -b staging -t staging/master")
+      end
+    end
+
+    context "branch does not exist yet" do
+      before do
+        stage.stub(:sh) do |command|
+          commands << command
+
+          if command == "git branch"
+            "* master\n"
+          end
+        end
+      end
+
+      it "does not try to delete the branch" do
+        stage.checkout
+        commands.should_not include("git branch -D staging")
+      end
+
+      it "checks out a new tracking branch" do
+        stage.checkout
+        commands.should include("git checkout -b staging -t staging/master")
+      end
     end
   end
 
