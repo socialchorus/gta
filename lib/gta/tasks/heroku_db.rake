@@ -5,6 +5,12 @@ namespace :gta do
         @gta_db ||= GTA::DB.new(GTA::Manager.env_config, GTA::LocalDB.local_database_env)
       end
 
+      desc 'fetch and load the remote database'
+      task :pull, :stage_name do |t, args|
+        Rake::Task['gta:heroku:db:fetch'].invoke(args[:stage_name])
+        Rake::Task['gta:heroku:db:load'].invoke(args[:stage_name])
+      end
+
       desc 'download the database from the specified stage or from the last stage'
       task :fetch, :stage_name do |t, args|
         gta_db.fetch(args[:stage_name])
