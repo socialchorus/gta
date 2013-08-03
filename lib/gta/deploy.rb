@@ -1,5 +1,7 @@
 module GTA
   class Deploy
+    include Sh
+
     attr_reader :gta_config_path, :stage_name
 
     def initialize(stage_name, gta_config_path=nil)
@@ -24,8 +26,11 @@ module GTA
       source.fetch!
 
       source.checkout! # so the tracking branch exists
+      sh("git checkout master") # in case the latest deploy code is not on that branch
 
       forced == :force ? destination.force_push : destination.push
+
+      sh('git checkout master')
     end
   end
 end
