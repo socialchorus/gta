@@ -25,6 +25,7 @@ module GTA
     end
 
     def checkout(name)
+      stage!(name).fetch
       stage!(name).checkout
     end
 

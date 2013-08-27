@@ -1,6 +1,7 @@
 require 'open3'
 require 'ansi/code'
 require 'json'
+require 'yaml'
 
 require "gta/version"
 require "gta/sh"

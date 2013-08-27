@@ -8,13 +8,16 @@ describe GTA::Hotfix do
 
   describe '#checkout' do
     context "no stage provided" do
+
       it "gets the first hotfixable stage" do
+        hotfix.should_receive(:sh!).with("git fetch ")
         manager.should_receive(:hotfixer)
           .and_return(stage)
         hotfix.checkout
       end
 
       it "finds and checks out the first hotfixable stage" do
+        hotfix.should_receive(:sh!).with("git fetch ")
         manager.should_receive(:hotfixer).with(nil).and_return(stage)
         stage.should_receive(:checkout)
         hotfix.checkout
@@ -23,6 +26,7 @@ describe GTA::Hotfix do
 
     context "stage is not hotfixable" do
       it "raises an error" do
+        hotfix.should_receive(:sh!).with("git fetch production")
         expect {
           hotfix.checkout('production')
         }.to raise_error
@@ -31,6 +35,7 @@ describe GTA::Hotfix do
 
     context "stage is hotfixable" do
       it "checks out that stage" do
+        hotfix.should_receive(:sh!).with("git fetch staging")
         manager.should_receive(:hotfixer)
           .with('staging')
           .and_return(stage)
