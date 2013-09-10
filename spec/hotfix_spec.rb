@@ -4,20 +4,20 @@ describe GTA::Hotfix do
   let(:gta_config_path) { File.dirname(__FILE__) + "/fixtures/config/gta.yml" }
   let(:hotfix) { GTA::Hotfix.new(gta_config_path) }
   let(:manager) { hotfix.manager }
-  let(:stage) { double(checkout: true) }
+  let(:stage) { double(checkout: true, name: 'staging') }
 
   describe '#checkout' do
     context "no stage provided" do
 
       it "gets the first hotfixable stage" do
-        hotfix.should_receive(:sh!).with("git fetch ")
+        hotfix.should_receive(:sh!).with("git fetch #{stage.name}")
         manager.should_receive(:hotfixer)
           .and_return(stage)
         hotfix.checkout
       end
 
       it "finds and checks out the first hotfixable stage" do
-        hotfix.should_receive(:sh!).with("git fetch ")
+        hotfix.stub(:sh!)
         manager.should_receive(:hotfixer).with(nil).and_return(stage)
         stage.should_receive(:checkout)
         hotfix.checkout
@@ -26,7 +26,6 @@ describe GTA::Hotfix do
 
     context "stage is not hotfixable" do
       it "raises an error" do
-        hotfix.should_receive(:sh!).with("git fetch production")
         expect {
           hotfix.checkout('production')
         }.to raise_error

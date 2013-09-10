@@ -9,8 +9,8 @@ module GTA
     end
 
     def checkout(stage_name=nil)
-      sh!("git fetch #{stage_name}")
       stage = stage_for(stage_name)
+      sh!("git fetch #{stage.name}")
       not_hotfixable!(stage_name) unless stage
       stage.checkout
     end
