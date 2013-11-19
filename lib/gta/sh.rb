@@ -5,7 +5,7 @@ module GTA
     end
 
     def sh!(command)
-      commander(command).perform
+      commander(command).perform!
     end
 
     def commander(command=nil)
