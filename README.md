@@ -1,4 +1,4 @@
-[![Code Climate](https://codeclimate.com/github/socialchorus/gta.png)](https://codeclimate.com/github/socialchorus/gta)
+[![Code Climate](https://codeclimate.com/github/company/gta.png)](https://codeclimate.com/github/company/gta)
 
 # GTA - the Git Transit Authority
 
@@ -15,7 +15,7 @@ that can car reek havok.
 GTA reads git configuration from yml file that should be checked into
 source control, assuring the whole team is sharing configurations. There
 are easy methods for setting up git remotes, and moving code from stage
-to stage. 
+to stage.
 
 ## Installation
 
@@ -31,12 +31,35 @@ Or install it yourself as:
 
     $ gem install gta
 
+Make sure you create a `gta.yml` file in your config directory that looks something like this:
+
+    name: app-name
+
+    stages:
+      origin:
+        repository: git@github.com:username/repo.git
+
+      staging:
+        source: origin
+        repository: git@heroku.com:app-name-staging.git
+
+      qa:
+        source: staging
+        repository: git@heroku.com:app-name-qa.git
+
+      production:
+        source: qa
+        repository: git@heroku.com:app-name-production.git
+
+**Note:** make sure to add `require 'gta/tasks'` to your Rakefile
+
+
 ## Usage
 
 The main use case is via rake task. Include the rake tasks via the
 project Rakefile.
 
-    
+
 
 ## Contributing
 
