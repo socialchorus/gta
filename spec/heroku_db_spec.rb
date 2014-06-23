@@ -33,7 +33,7 @@ describe GTA::HerokuDB do
     it "downloads the latest database backup to an appropriately named file in downloads" do
       heroku_db.should_receive(:url).and_return('http://heroku-backup-url.com')
       heroku_db.should_receive(:sh!)
-        .with('curl -o ~/Downloads/activator-staging.sql "http://heroku-backup-url.com"')
+        .with('curl -o /tmp/activator-staging.sql "http://heroku-backup-url.com"')
       heroku_db.fetch
     end
   end

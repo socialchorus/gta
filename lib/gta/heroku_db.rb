@@ -26,7 +26,7 @@ module GTA
     end
 
     def file_name
-      "~/Downloads/#{app_signature}.sql"
+      "/tmp/#{app_signature}.sql"
     end
 
     def app_signature
