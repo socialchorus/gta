@@ -8,8 +8,8 @@ Heroku has made git deploys an awesome standard. Mislav's git-deploy gem
 has made this ease of deploy a possibility for servers that are not
 Heroku too. Despite the easiness of a git deploy system managing a
 series of stages, ie. origin => ci => staging => production, takes some
-care and consideration. Additionally, hotfixing changes in the middle of
-the chain causes a reordering of commits and different push proceedures
+care and consideration. Additionally, hot-fixing changes in the middle of
+the chain causes a reordering of commits and different push procedures
 that can car reek havok.
 
 GTA reads git configuration from yml file that should be checked into
