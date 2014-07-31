@@ -16,6 +16,10 @@ module GTA
       end
     end
 
+    def account
+      @account || config && @account
+    end
+
     def app_name
       @app_name || config && @app_name
     end
@@ -46,6 +50,7 @@ module GTA
     def config
       return @config if @config
       parsed = YAML.load(File.read(config_path))
+      @account = parsed['account']
       @app_name = parsed['name']
       @database_config_path = find_database_config(parsed['database_config'])
       @config = parsed['stages']

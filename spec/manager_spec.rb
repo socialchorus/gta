@@ -126,4 +126,13 @@ describe GTA::Manager do
       manager.setup
     end
   end
+
+  context 'when heroku account is specified' do
+    let(:config_path_with_account) { File.dirname(__FILE__) + "/fixtures/config/gta_with_account.yml" }
+    let(:manager_with_account) { GTA::Manager.new(config_path_with_account) }
+
+    it 'has an account name' do
+      expect(manager_with_account.account).to eq 'socialchorus'
+    end
+  end
 end

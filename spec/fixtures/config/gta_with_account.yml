@@ -1,0 +1,29 @@
+database_config: database.yml # relative from the config file
+name: activator
+account: socialchorus
+
+stages:
+  origin:
+    repository: git@github.com:socialchorus/activator.git
+
+  ci:
+    source: origin
+    tag: ci/*
+    repository: git@github.com:socialchorus/activator.git
+
+  staging:
+    source: ci
+    repository: git@heroku.com:activator-staging.git
+    restorable: true
+    hotfixable: true
+
+  qa:
+    source: staging
+    repository: git@heroku.com:activator-qa.git
+    restorable: true
+    final: true
+    hotfixable: true
+
+  production:
+    source: qa
+    repository: git@heroku.com:activator-production.git

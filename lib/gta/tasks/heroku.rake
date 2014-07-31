@@ -9,7 +9,7 @@ namespace :gta do
 
     def app_argument(args)
       manager = GTA::Manager.new(GTA::Manager.env_config)
-      "--app #{manager.app_name}-#{stage_name!(args)}"
+      manager.account.blank? ? "--app #{manager.app_name}-#{stage_name!(args)}" : "--app #{manager.app_name}-#{stage_name!(args)} --account #{manager.account}"
     end
 
     desc "turn maintenance on for this stage"
