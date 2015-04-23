@@ -7,7 +7,7 @@ describe GTA::HerokuDB do
   describe '#url' do
     it "gets the temporary database url from heroku" do
       heroku_db.should_receive(:sh!)
-        .with("heroku pgbackups:url --app activator-staging")
+        .with("heroku pg:backups public-url --app activator-staging")
         .and_return('backup url')
       heroku_db.url.should == 'backup url'
     end
@@ -16,7 +16,7 @@ describe GTA::HerokuDB do
   describe '#backup' do
     it "sends a heroku command to backup the databse, with the expire flag" do
       heroku_db.should_receive(:sh)
-        .with("heroku pgbackups:capture --expire --app activator-staging")
+        .with("heroku pg:backups capture --expire --app activator-staging")
       heroku_db.backup
     end
   end
@@ -24,7 +24,7 @@ describe GTA::HerokuDB do
   describe '#restore_from(url)' do
     it "sends a heroku command to restore the database from the given url" do
       heroku_db.should_receive(:sh!)
-        .with('heroku pgbackups:restore DATABASE_URL "http://my-database-url.com" --app activator-staging --confirm activator-staging')
+        .with('heroku pg:backups restore "http://my-database-url.com" DATABASE_URL --app activator-staging --confirm activator-staging')
       heroku_db.restore_from("http://my-database-url.com")
     end
   end

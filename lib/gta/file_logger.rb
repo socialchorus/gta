@@ -1,3 +1,5 @@
+require 'fileutils'
+
 module GTA
   class FileLogger
     attr_reader :log_dir

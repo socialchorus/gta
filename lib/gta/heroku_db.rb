@@ -10,15 +10,15 @@ module GTA
     end
 
     def url
-      sh!("heroku pgbackups:url --app #{app_signature}").strip
+      sh!("heroku pg:backups public-url --app #{app_signature}").strip
     end
 
     def backup
-      sh("heroku pgbackups:capture --expire --app #{app_signature}")
+      sh("heroku pg:backups capture --expire --app #{app_signature}")
     end
 
     def restore_from(url)
-      sh!("heroku pgbackups:restore DATABASE_URL \"#{url}\" --app #{app_signature} --confirm #{app_signature}")
+      sh!("heroku pg:backups restore \"#{url}\" DATABASE_URL --app #{app_signature} --confirm #{app_signature}")
     end
 
     def fetch

@@ -87,7 +87,7 @@ describe GTA::DB do
   describe '#restore' do
     let(:manager) { db.manager }
     let(:source_heroku_db) { double('source db', backup: true, url: 'source-url') }
-    let(:destination_heroku_db) { double('distination db', restore_from: true) }
+    let(:destination_heroku_db) { double('destination db', restore_from: true) }
 
     context 'when the destination stage is not restorable' do
       it "raises an error" do
